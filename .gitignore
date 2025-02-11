@@ -1,0 +1,19 @@
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.so
+
+# Commented the env and sql lite 
+# because its just for testing 
+# in real world application the sql would be postgresql or any other databse
+# Virtual environment
+# venv/
+# .env
+
+# # Flask instance folder
+# instance/
+
+# # SQLite database file
+# app/database/db.sqlite
