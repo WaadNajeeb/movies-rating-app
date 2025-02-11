@@ -1,0 +1,107 @@
+{% extends "authbase.html" %}
+{% block title %}Login{% endblock %}
+{% block content%}
+
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+</head>
+<div class="d-flex justify-content-center align-items-center" style="margin-top:10%; width:35vh">
+    <form method="POST" class="custom-form" novalidate style="width: 100%;">
+        <h3 style="color: #fff; margin-bottom:25px">Sign In</h3>
+       
+         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <div class="form-group">
+            <label for="username" style="color: #eee;">Username</label>
+            <input type="text" class="form-control" id="username" aria-describedby="usernameHelp" name="username"
+                placeholder="Enter Your Username" required minlength="3" name="username">
+            <div class="invalid-feedback">
+                Username must be more than 3 characters
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <div class="input-group pass-icon">
+                <input type="password" class="form-control" id="password" required name="password"
+                    placeholder="Enter Your Password">
+                <span class="input-group-text password-toggle" id="togglePassword">
+                    <span class="material-symbols-outlined">visibility</span>
+                </span>
+            </div>
+        </div>
+        <div style="display: flex; justify-content:flex-end; margin-top:30px">
+            <button type="submit" class="btn btn-primary">Sign In</button>
+        </div>
+        <div style="display: flex; justify-content:center; margin-top:10px">
+            <p style="color: #eee;">Don't have an account? <a style="margin-left: 5px;" href="/auth/register" class="link-underline-primary">Register</a></p>
+        </div>
+        
+    </form>
+</div>
+
+<style>
+    .custom-form {
+        /* Set your desired width */
+        padding: 30px;
+        /* Optional: Add some padding to make the form more spacious */
+        background-color: #1e1e1e;
+        /* Ensure form has a white background */
+        border-radius: 8px;
+        /* Optional: Round corners of the form */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        /* Back-shadow effect */
+    }
+
+    .password-toggle {
+        cursor: pointer;
+        user-select: none;
+        background-color: #fff;
+        border: none !important;
+        border-top-left-radius: 0 !important;
+        border-bottom-left-radius: 0 !important;
+    }
+
+    .material-symbols-outlined {
+        color: #000;
+    }
+
+    label {
+        color: #eee;
+    }
+</style>
+
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        'use strict';
+        
+        let form = document.querySelector('.custom-form');
+        let password = document.getElementById("password");
+        let confirmPassword = document.getElementById("confirmPassword");
+        let togglePassword = document.getElementById("togglePassword");
+
+        // Toggle Password Visibility
+        togglePassword.addEventListener("click", function () {
+            togglePasswordVisibility("password", this);
+        });
+
+        function togglePasswordVisibility(inputId, button) {
+            let input = document.getElementById(inputId);
+            let icon = button.querySelector("i");
+
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                input.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        }
+    });
+</script>
+
+
+{% endblock %}

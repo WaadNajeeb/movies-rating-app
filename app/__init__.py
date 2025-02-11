@@ -1,23 +1,21 @@
 import os
 from flask import Flask
 from flask_login import LoginManager
-from flask_sqlalchemy import SQLAlchemy
+from app.extensions import db
 from dotenv import load_dotenv
 from app.models.user import User
 from app.routes import auth_routes, movie_route 
+from app.config.config import config_by_name
 
 # Load environment variables from .env file
 load_dotenv()
-
-db:SQLAlchemy = SQLAlchemy()
 login_manager = LoginManager()
 
-def create_app():
+def create_app(config_name="development"):
     app = Flask(__name__)
 
-    # Load configuration from environment variables
-    app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
+
+    app.config.from_object(config_by_name[config_name])
 
     # Disable Flask-SQLAlchemy track modifications (optional)
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False

@@ -1,9 +1,9 @@
-from . import db
-from sqlalchemy import func
+from app.extensions import db
 from sqlalchemy import desc
 from uuid import uuid4
 from datetime import datetime
-from user import User
+
+from app.models.user import User
 
 class Review(db.Model):
     __tablename__ = 'review'
@@ -59,3 +59,4 @@ class Review(db.Model):
     def save(self):
         db.session.add(self)
         db.session.commit()
+        

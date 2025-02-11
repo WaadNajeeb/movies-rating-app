@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+
+<div class="movie-container" id="movie-card" >
+    <div class="movie-content" movie-id="{{top_movie.id}}" id="movie-card">
+        <div style=" color:#fff; padding:20px">
+            <h1 style="font-size: 3.5em;">{{top_movie.title}}</h1>
+            <div class="movie-info" style="margin-bottom: 10px;">
+                <span class="material-symbols-outlined star">star</span>
+                <span class="rating">{{top_movie.average_rating}}</span>
+
+                <span class="material-symbols-outlined globe">language</span>
+                <span class="language">{{top_movie.language}}</span>
+
+                <span class="material-symbols-outlined timer">schedule</span>
+                <span class="runtime">{{top_movie.runtime}}</span>
+            </div>
+
+            <!-- Genres -->
+            <div class="genres" style="margin-bottom: 20px;">
+                {% for genre in top_movie.movie_genres %}
+                <span class="genre">{{genre}}</span>
+                {% endfor %}
+            </div>
+
+            <!-- Release Date -->
+            <div class="release-date" style="margin-bottom: 10px;">
+                <span class="material-symbols-outlined">calendar_today</span>
+                <span class="date">{{top_movie.year}}</span>
+            </div>
+
+            <!-- Director -->
+            <div class="director" style="margin-bottom: 10px;">
+                <span class="material-symbols-outlined">person</span>
+                <span class="director-name">Director(s): {{top_movie.director}}</span>
+            </div>
+
+            <!-- Cast -->
+            <div class="cast" style="margin-bottom: 10px;">
+                <span class="material-symbols-outlined">people</span>
+                <span class="cast-names">Writer(s): {{top_movie.writer}}</span>
+            </div>
+            <div class="cast" style="margin-bottom: 20px;">
+                <span class="material-symbols-outlined">people</span>
+                <span class="cast-names">Star Actor(s): {{top_movie.actors}}</span>
+            </div>
+            <!-- Plot -->
+            <div class="movie-plot">
+                <p>{{top_movie.plot}}.</p>
+            </div>
+
+            <button class="btn btn-primary" id="reviewBtn" movie-id="{{top_movie.id}}">Add Review</button>
+        </div>
+        <div class="movie-image-container" style=" display:flex; justify-content:center">
+            <img src="{{top_movie.poster}}"  style="object-fit:contain; max-width:95%; height:auto" alt="{{top_movie.title}}" />
+        </div>
+    </div>
+</div>
+
+
+<div style=" margin-top:80px;text-align:center;">
+    <div>
+        <h2 style="color: #fff; margin-bottom:20px">Featured Movies</h2>
+        <hr style="width:20%;margin-left: auto; margin-right: auto; background-color: #fff; margin-top:5px; height:4px">
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap:20px; padding:60px; ">
+        {% for movie in movies %}
+        <a href="/movies/{{ movie.id }}" class="card-link" style="text-decoration: none;">
+            <div class="card" style="width: 18rem; cursor:pointer">
+                <img src="{{movie.poster}}" class="card-img-top" alt="Movie Poster"
+                    style="height: 300px; object-fit: cover;">
+
+                <div class="card-body text-center" style="padding: 1em  !important;">
+                    <h5 class="card-title" style="color: #e0e0e0">{{ movie.title }}</h5>
+
+                    <div class="d-flex justify-content-center align-items-center">
+                        <span class="material-symbols-outlined star"
+                            style="font-size: 20px; color: #f1c40f;">star</span>
+                        <span class="rating"
+                            style="font-size: 18px; font-weight: bold; margin-left: 5px; color: #e0e0e0">
+                            {{movie.average_rating }}</span>
+                    </div>
+                    {% if current_user.is_authenticated %}
+                        <div class="d-flex justify-content-center align-items-center">
+                            <span class="material-symbols-outlined star"
+                                style="font-size: 20px; color: blue;">star</span>
+                            <span class="rating"
+                                style="font-size: 18px; font-weight: bold; margin-left: 5px; color: #e0e0e0">{{
+                                movie.user_rating }}</span>
+                        </div>
+                    {% endif %}
+                    
+                </div>
+                <div class="card-body" style="padding-bottom: 0 !important;">
+                    <button class="btn btn-primary btn-sm">Add to Watch List</button>
+                </div>
+            </div>
+        </a>
+
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}

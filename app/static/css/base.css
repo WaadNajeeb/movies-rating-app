@@ -1,0 +1,86 @@
+
+
+/* Style the form elements as needed */
+label {
+    display: block;
+    /* Make labels stack on top of inputs */
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="password"] {
+    /* Full width, accounting for padding */
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.bg-dark{
+    background-color: #171717 !important; 
+}
+.nar-bar-style {
+    background-color: #171717 !important; 
+    margin-bottom: 5px; 
+    margin-top: 5px;
+}
+.link-button {
+    background: none;
+    /* Remove background */
+    border: none;
+    /* Remove border */
+    padding: 0;
+    /* Remove padding */
+    color: #0d8ce8;
+    /* Set link color */
+    text-decoration: underline;
+    /* Add underline */
+    cursor: pointer;
+    /* Make cursor a pointer */
+    font-family: inherit;
+    /* Inherit font from parent */
+    font-size: inherit;
+    /* Inherit font size */
+}
+
+.link-button:hover {
+    color: darkblue;
+    /* Darker color on hover */
+}
+
+.link-button:active {
+    color: red;
+    /* Change color on click */
+}
+
+.link-button:focus {
+    /* Optional: Add focus styles */
+    outline: none;
+    /* Remove default outline */
+    text-decoration: none;
+    /* Remove underline on focus if you want */
+    /* Add your custom focus styles here */
+}
+
+
+#navbarDropdown::after {
+    display: none;
+  }
+
+
+  .dropdown-menu-end {
+    right: 0 !important;
+    left: auto !important;
+    direction: rtl; /* Right-to-left direction */
+  }
+
+
+.flash_messages{
+    
+    position: fixed;
+    bottom: 15px;
+    z-index: 1050;
+    width: 100%; display:flex; 
+    justify-content:center
+}

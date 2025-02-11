@@ -1,4 +1,4 @@
-from . import db
+from app.extensions import db
 from flask_login import UserMixin
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -87,4 +87,3 @@ class User(db.Model, UserMixin):
     def save(self):
         db.session.add(self)
         db.session.commit()
-    

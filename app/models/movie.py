@@ -1,8 +1,8 @@
-from . import db
+from app.extensions import db
 from sqlalchemy import func
 from sqlalchemy import desc
 from uuid import uuid4
-from review import Review
+from app.models.review import Review
 from datetime import datetime
 from sqlalchemy import text
 

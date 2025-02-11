@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block title %}
+  All Movies
+{% endblock %}
+{% block content %}
+  <div style=" margin-top:50px;text-align:center;">
+    <div>
+      <h2 style="color: #fff; margin-bottom:20px">All Movies</h2>
+      <hr style="width:20%;margin-left: auto; margin-right: auto; background-color: #fff; margin-top:5px; height:4px" />
+    </div>
+    <div style="display:flex; justify-content:center">
+      <div style="padding:60px; width:80%">
+        <form method="get" action="{{ url_for('movies.get_new_released') }}" style="margin-bottom:20px; ">
+          <input type="text" name="search" value="{{ search_query }}" placeholder="Search movies..." style="color:#e0e0e0; background:#171717" />
+        </form>
+        <div>
+          <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap:20px; ">
+            {% for movie in movies %}
+              <div class="card" style="width: 18rem;" style="background-color: #171717 !important;">
+                <img src="{{ movie.poster }}" class="card-img-top" alt="Movie Poster" style="height: 300px; object-fit: cover;" />
+
+                <div class="card-body text-center" style="padding: 1em  !important;">
+                  <h5 class="card-title" style="color: #e0e0e0">{{ movie.title }}</h5>
+
+                  <div class="d-flex justify-content-center align-items-center">
+                    <span class="material-symbols-outlined star" style="font-size: 20px; color: #f1c40f;">star</span>
+                    <span class="rating" style="font-size: 18px; font-weight: bold; margin-left: 5px; color: #e0e0e0">{{ movie.average_rating }}</span>
+                  </div>
+                  {% if current_user.is_authenticated %}
+                    <div class="d-flex justify-content-center align-items-center">
+                      <span class="material-symbols-outlined star" style="font-size: 20px; color: blue;">star</span>
+                      <span class="rating" style="font-size: 18px; font-weight: bold; margin-left: 5px; color: #e0e0e0">{{ movie.user_rating }}</span>
+                    </div>
+                  {% endif %}
+                </div>
+                <div class="card-body" style="padding-bottom: 0 !important;">
+                  <button class="btn btn-primary btn-sm">Add to Watch List</button>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        <!-- Pagination -->
+      </div>
+    </div>
+
+    <nav>
+      <ul class="pagination justify-content-center">
+        <!-- Previous Button -->
+        <li class="page-item {% if page == 1 %}disabled{% endif %}">
+          <a class="page-link" href="{{ url_for('movies.get_top_rate', page=page - 1, per_page=per_page, search=search_query) }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+        </li>
+
+        <!-- Page Numbers -->
+        {% for p in range(1, total_pages + 1) %}
+          <li class="page-item {% if p == page %}active{% endif %}">
+            <a class="page-link" href="{{ url_for('movies.get_top_rate', page=p, per_page=per_page, search=search_query) }}">{{ p }}</a>
+          </li>
+        {% endfor %}
+
+        <!-- Next Button -->
+        <li class="page-item {% if page == total_pages %}disabled{% endif %}">
+          <a class="page-link" href="{{ url_for('movies.get_top_rate', page=page + 1, per_page=per_page, search=search_query) }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+{% endblock %}

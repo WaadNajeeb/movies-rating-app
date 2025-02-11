@@ -6,7 +6,7 @@ from flask_login import login_user, login_required, logout_user, current_user
 from sqlalchemy import text
 from app.models.review import Review
 from app.reviewschema import ReviewSchema
-from movieschema import MovieSchema, calculate_movie_data, calculate_movies_data
+from app.movieschema import MovieSchema, calculate_movie_data, calculate_movies_data
 from app.models.movie import Movie
 
 movies = Blueprint("movies", __name__)

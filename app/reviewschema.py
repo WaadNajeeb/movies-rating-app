@@ -1,6 +1,6 @@
-from dataclasses import fields
-from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 
+from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
+from marshmallow import fields
 from app.models.review import Review
 from app.models.user import User
 
@@ -13,7 +13,7 @@ class UserReview(SQLAlchemyAutoSchema):
         # we dont need to return columns that we dont need to the frontend
         exclude = ('password', 'firstname', 'lastname', 'id', 'email') 
 
-    profile_picture = fields.Str(allow_none=True) 
+    profile_picture = fields.Str(allow_none=True)
     full_name = fields.Str(allow_none=True) 
 
 class ReviewSchema(SQLAlchemyAutoSchema):

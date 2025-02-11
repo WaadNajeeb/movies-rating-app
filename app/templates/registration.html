@@ -1,0 +1,189 @@
+{% extends "authbase.html" %}
+{% block title %}Register{% endblock %}
+{% block content%}
+
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+</head>
+<div class="d-flex justify-content-center align-items-center" style="margin-top:10%">
+    <form method="POST" class="custom-form" novalidate>
+        <h3 style="color: #fff; margin-bottom:25px">Sign Up</h3>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="firstname" style="color: #eee;">First Name</label>
+                <input type="text" class="form-control" id="firstname" aria-describedby="Firstname" name="firstname"
+                    placeholder="Enter First Name" required>
+                <div class="invalid-feedback">
+                    Please choose enter firstname.
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="lastname" style="color: #eee;">Last Name</label>
+                <input type="text" class="form-control" id="lastname" aria-describedby="Lastname" name="lastname"
+                    placeholder="Enter Last Name" required>
+                <div class="invalid-feedback">
+                    Please choose enter lastname.
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email" style="color: #eee;">Email</label>
+            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="email"
+                placeholder="Enter email" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+            <div class="invalid-feedback">
+                Please enter a valid email address.
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="username" style="color: #eee;">Username</label>
+            <input type="text" class="form-control" id="username" aria-describedby="usernameHelp" name="username"
+                placeholder="Enter Username" required minlength="3">
+            <div class="invalid-feedback">
+                Username must be more than 3 characters
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <div class="input-group pass-icon">
+                <input type="password" class="form-control" id="password" required
+                    placeholder="Enter Password" name="password">
+                <span class="input-group-text password-toggle" id="togglePassword">
+                    <span class="material-symbols-outlined">visibility</span>
+                </span>
+                <div class="invalid-feedback">
+                    Password must be at least 8 characters, with an uppercase, lowercase, number, and special character.
+                </div>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="confirmPassword" class="form-label">Confirm Password</label>
+            <div class="input-group">
+                <input type="password" class="form-control" id="confirmPassword" required placeholder="Enter Password" name="confirmPassword">
+                <span class="input-group-text password-toggle" id="toggleConfirmPassword">
+                    <span class="material-symbols-outlined">visibility</span>
+                </span>
+                <div class="invalid-feedback">Passwords do not match.</div>
+            </div>
+            
+        </div>
+        <div style="display: flex; justify-content:flex-end; margin-top:30px">
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+        </div>
+
+        <div style="display: flex; justify-content:center">
+            <p style="color: #eee;">Already have an account? <a style="margin-left: 5px;" href="/auth/login" class="link-underline-primary">Login</a></p>
+        </div>
+    </form>
+    
+</div>
+
+<style>
+    .custom-form {
+        /* Set your desired width */
+        padding: 30px;
+        /* Optional: Add some padding to make the form more spacious */
+        background-color: #1e1e1e;
+        /* Ensure form has a white background */
+        border-radius: 8px;
+        /* Optional: Round corners of the form */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        /* Back-shadow effect */
+    }
+
+    .password-toggle {
+        cursor: pointer;
+        user-select: none;
+        background-color: #fff;
+        border: none !important;
+        border-top-left-radius: 0 !important;
+        border-bottom-left-radius: 0 !important;
+    }
+
+    .material-symbols-outlined {
+        color: #000;
+    }
+
+    label {
+        color: #eee;
+    }
+</style>
+
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        'use strict';
+        
+        let form = document.querySelector('.custom-form');
+        let password = document.getElementById("password");
+        let confirmPassword = document.getElementById("confirmPassword");
+        let togglePassword = document.getElementById("togglePassword");
+        let toggleConfirmPassword = document.getElementById("toggleConfirmPassword");
+
+        // Ensure elements are present
+        if (!password || !confirmPassword || !togglePassword || !toggleConfirmPassword) {
+            console.error("One or more elements are missing");
+            return;
+        }
+
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity() || password.value !== confirmPassword.value) {
+                event.preventDefault();
+                event.stopPropagation();
+                if (password.value !== confirmPassword.value) {
+                    confirmPassword.setCustomValidity("Passwords do not match.");
+                } else {
+                    confirmPassword.setCustomValidity("");
+                }
+            }
+            form.classList.add('was-validated');
+        });
+
+        password.addEventListener('input', function () {
+            let passwordValue = password.value;
+            let pattern =  /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+            if (!pattern.test(passwordValue)) {
+                password.setCustomValidity('Password must be at least 8 characters, with an uppercase, lowercase, number, and special character.');
+            } else {
+                password.setCustomValidity('');
+            }
+        });
+
+        confirmPassword.addEventListener("input", function () {
+            if (password.value !== confirmPassword.value) {
+                confirmPassword.setCustomValidity("Passwords do not match.");
+            } else {
+                confirmPassword.setCustomValidity("");
+            }
+        });
+
+        // Toggle Password Visibility
+        togglePassword.addEventListener("click", function () {
+            togglePasswordVisibility("password", this);
+        });
+
+        toggleConfirmPassword.addEventListener("click", function () {
+            togglePasswordVisibility("confirmPassword", this);
+        });
+
+        function togglePasswordVisibility(inputId, button) {
+            let input = document.getElementById(inputId);
+            let icon = button.querySelector("i");
+
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                input.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        }
+    });
+</script>
+
+
+{% endblock %}
