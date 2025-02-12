@@ -69,7 +69,7 @@ def get_login():
         
         user = User.get_user_by_username(username=username)
     
-        if user and (User.check_password(userPass=user.password,password=password)):
+        if user and (user.check_pass(password=password)):
             flash('Logged in successfully!', category='success')
             login_user(user, remember=True)
             next_page = request.args.get("next_page") # get the url argument
