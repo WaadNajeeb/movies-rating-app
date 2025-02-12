@@ -1,8 +1,32 @@
-# Movies Rating App
+# Movie Rating Website
 
-## Setup & Installation
+A web application where users can review and rate movies.
 
-Make sure you have the latest version of Python installed.
+## Features
+
+- **User Authentication**: Create an account, log in, and log out.
+- **Movie Reviews**: Users can rate movies and leave comments.
+- **Responsive Design**: Works on mobile and desktop devices.
+- **Progressive Web App (PWA)**: Install the app on your home screen for offline use.
+
+## Tech Stack
+
+- **Frontend**: 
+  - HTML, CSS
+  
+- **Backend**: 
+  - Flask
+  - Flask-Login for user authentication
+  - SQLite (or other database)
+  - Flask-SQLAlchemy
+  - marshmallow
+  - marshmallow_sqlalchemy
+
+## Installation
+
+To run this project locally, follow these steps:
+
+### 1. Clone the repository:
 
 ```bash
 git clone <repo-url>
@@ -15,7 +39,7 @@ pip install -r requirements.txt
 ## Running The App
 
 ```bash
-python main.py
+python app.py
 ```
 
 ## Viewing The App
