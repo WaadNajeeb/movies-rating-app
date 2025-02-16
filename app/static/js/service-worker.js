@@ -1,19 +1,21 @@
 self.addEventListener('install', (event) => {
     event.waitUntil(
-        caches.open('movie-rating-app-v1').then((cache) => {
+        caches.open('movie-rating-app').then((cache) => {
             return cache.addAll([
                 '/',
-                '/static/css/base.css',
-                '/static/icons/apple-touch-icon.png',
-                'static/icons/favicon-32x32.png',
-                '/static/icons/favicon-16x16.png',
-                '/static/css/movie.css',
-                '/static/css/movies.css',
-                '/static/css/movie-review.css',
-                '/static/js/app.js',
-                '/static/icons/192.png',
-                '/static/icons/512.png',
-                '/static/icons/1024.png'
+                '../css/base.css',
+                '../css/movie.css',
+                '../css/movies.css',
+                '../css/movie-review.css',
+                '../icons/apple-touch-icon.png',
+                '../icons/favicon-16x16.png',
+                '../icons/favicon-16x16.png',
+                '../js/app.js',
+                '../icons/192.png',
+                '../icons/512.png',
+                '../icons/1024.png',
+                '../icons/1280x720_screentshot.png',
+                '../icons/phone_screenshot.png'
             ]);
         })
     );
@@ -49,15 +51,15 @@ window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     // Stash the event so it can be triggered later
     deferredPrompt = e;
-  
+
     // Optionally, show your custom install button here
     document.getElementById('install-button').style.display = 'block';
   });
-  
+
   document.getElementById('install-button').addEventListener('click', () => {
     // Show the install prompt
     deferredPrompt.prompt();
-  
+
     deferredPrompt.userChoice.then((choiceResult) => {
       if (choiceResult.outcome === 'accepted') {
         console.log('User accepted the install prompt');

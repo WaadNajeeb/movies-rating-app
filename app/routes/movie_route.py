@@ -107,7 +107,7 @@ def get_movie(id):
     
     db_movie:Movie = Movie.query.get(id)
     movie = calculate_movie_data(db_movie)
-    user_id = current_user.id
+    user_id = current_user.id if current_user.is_authenticated else None
     my_reviews = None
     movie_reviews =None
     
@@ -116,7 +116,7 @@ def get_movie(id):
         my_reviews = ReviewSchema().dump(user_review) if user_review else None
         movie_reviews = Review.getReviews(movieId=db_movie.id, user_id=user_id).paginate(page=page, per_page=per_page, error_out=False)
     else:
-        movie_reviews = Review.getOtherUsersReviews(movieId=db_movie.id).paginate(page=page, per_page=per_page, error_out=False)
+        movie_reviews = Review.getReviews(movieId=db_movie.id,  user_id=None).paginate(page=page, per_page=per_page, error_out=False)
 
     
     reviews_data = ReviewSchema(many=True).dump(movie_reviews.items)
@@ -137,7 +137,7 @@ def get_movie(id):
 @movies.route('/movies/<id>/reviews', methods=['GET', 'POST'])
 @login_required
 def get_movie_with_reviews(id):
-    user_id = current_user.id
+    user_id = current_user.id if current_user.is_authenticated else None
     if request.method == 'POST':
         title = request.form.get('title')
         comment = request.form.get('reviewComment')
@@ -156,7 +156,7 @@ def get_movie_with_reviews(id):
 @movies.get('/check_review/<id>')
 @login_required
 def check_review(id):
-    user_id = current_user.id
+    user_id = current_user.id if current_user.is_authenticated else None
     review = Review.getUserReviews(movieId=id, user_id=user_id).first()
     if review is not None:
         flash("You've already submitted a review for this movie!", category='info')

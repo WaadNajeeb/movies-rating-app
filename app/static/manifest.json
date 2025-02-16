@@ -3,9 +3,6 @@
     "short_name": "Movies",
     "description": "A movie review app",
     "start_url": "/",
-    "display": "standalone",
-    "background_color": "#ffffff",
-    "theme_color": "#000000",
     "icons": [
         {
             "src": "/static/icons/192.png",
@@ -22,5 +19,21 @@
             "sizes": "1024x1024",
             "type": "image/png"
         }
-    ]
+    ],
+    "screenshots": [
+        {
+            "src": "/static/icons/1280x720_screentshot.png",
+            "sizes": "1280x720",
+            "type": "image/png",
+            "form_factor":"wide"
+        },
+        {
+            "src": "/static/icons/phone_screenshot.png",
+            "sizes": "652x1408",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#ffffff",
+    "background_color": "#ffffff",
+    "display": "standalone"
 }
